@@ -6,7 +6,7 @@ Implementasi CRUD sederhana dengan enkripsi Stream XOR (repeating-key).
 - `public/index.php` — API minimal untuk Create/Read/Update/Delete.
 - `sql/dump.sql` — dump database MySQL.
 - `.env.example` — contoh konfigurasi jika ingin pakai environment variables.
-- `sample_requests.http` — contoh request (bisa dipakai di VSCode REST Client)
+- `sample_request.http` — contoh request (bisa dipakai di VSCode REST Client)
 atau gunakan `curl`.
 ## Persyaratan
 - PHP 8+ (atau PHP 7.4+ jika tidak tersedia PHP 8)
