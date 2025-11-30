@@ -1,8 +1,7 @@
-# XOR-CRUD
+# Kriptografi dan Steganografi
+## Tugas 1 CRUD Stream XOR
 Implementasi CRUD sederhana dengan enkripsi Stream XOR (repeating-key).
-**Catatan penting:** Implementasi ini hanya untuk keperluan tugas dan
-pembelajaran. Stream XOR dengan repeating-key **tidak aman** untuk penggunaan
-produksi.
+
 ## Isi repo
 - `public/index.php` — API minimal untuk Create/Read/Update/Delete.
 - `sql/dump.sql` — dump database MySQL.
@@ -25,6 +24,26 @@ buat file `.env` sendiri.
 php -S localhost:8000 -t public
  ```
 4. Contoh request:
+
+- **VSCode REST Client**
+Disarankan menggunakan extensi REST Client by Huachao Mao untuk mempermudah pengetesan request. Buka file `sample_request.php` , ketika sudah menginstall extention REST Client maka akan muncul tombol `Send Request` 
+
+```bash
+[ Send Request ] --> fitur dari REST Client bisa di klik dan akan langsung menjalankan REST Api
+
+POST http://localhost:8000/items
+Content-Type: application/json
+
+{
+"name": "Contoh 2",
+"secret": "Ini pesan rahasia subhan",
+"key": "mypassword"
+}
+
+```
+
+**Request mengunakan curl**
+
 - **Create**
  ```bash
 curl -X POST http://localhost:8000/items
@@ -50,14 +69,3 @@ curl -X PUT http://localhost:8000/items/1
  ```bash
 curl -X DELETE http://localhost:8000/items/1
  ```
-## Penjelasan singkat algoritma
-- **Prinsip**: byte plaintext di-XOR dengan keystream; operasi ini reversible.
-- **Keystream**: implementasi ini menggunakan repeating-key (key diulang sampai
-panjang plaintext).
-- **Kerentanan**: repeating-key XOR rentan terhadap serangan frekuensi dan
-known-plaintext.
-## Yang harus disertakan saat mengumpulkan
-- Link repository (GitHub/GitLab)
-- `sql/dump.sql`
-- README yang jelas (cara menjalankan + contoh request)
-- Penjelasan algoritma dan catatan keamanan
