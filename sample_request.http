@@ -1,0 +1,27 @@
+### Create item
+POST http://localhost:8000/items
+Content-Type: application/json
+
+{
+"name": "Contoh 2",
+"secret": "Ini pesan rahasia subhan",
+"key": "mypassword"
+}
+
+### List items (decrypt with key)
+GET http://localhost:8000/items?key=mypassword
+
+### Get single item
+GET http://localhost:8000/items/1?key=mypassword
+
+### Update item
+PUT http://localhost:8000/items/1
+Content-Type: application/json
+
+{
+"secret": "Pesan terbaru",
+"key": "mypassword"
+}
+
+### Delete item
+DELETE http://localhost:8000/items/1

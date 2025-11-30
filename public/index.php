@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 header("Content-Type: application/json; charset=utf-8");
 
@@ -70,11 +71,11 @@ if (preg_match('#^/items(?:/(\d+))?$#', $path, $m)) {
             ]);
             exit();
         }
-        $enc = xor_stream_encrypt($secret, $key);
-        $stmt = $pdo->prepare(
+        $encResult = xor_stream_encrypt($secret, $key);
+        $query = $pdo->prepare(
             "INSERT INTO items (name, secret_enc) VALUES (?, ?)",
         );
-        $stmt->execute([$name, $enc]);
+        $query->execute([$name, $encResult]);
         echo json_encode(["ok" => true, "id" => $pdo->lastInsertId()]);
         exit();
     }
@@ -96,21 +97,21 @@ if (preg_match('#^/items(?:/(\d+))?$#', $path, $m)) {
     }
     if ($method === "GET" && $id !== null) {
         $key = $_GET["key"] ?? "";
-        $stmt = $pdo->prepare(
+        $query = $pdo->prepare(
             "SELECT id,name,secret_enc,created_at FROM items WHERE id = ?",
         );
-        $stmt->execute([$id]);
-        $r = $stmt->fetch();
-        if (!$r) {
+        $query->execute([$id]);
+        $result = $query->fetch();
+        if (!$result) {
             http_response_code(404);
             echo json_encode([
                 "error" => "not found",
             ]);
             exit();
         }
-        $r["secret"] = $key ? xor_stream_decrypt($r["secret_enc"], $key) : null;
-        unset($r["secret_enc"]);
-        echo json_encode($r);
+        $result["secret"] = $key ? xor_stream_decrypt($result["secret_enc"], $key) : null;
+        unset($result["secret_enc"]);
+        echo json_encode($result);
         exit();
     }
     if (($method === "PUT" || $method === "PATCH") && $id !== null) {
